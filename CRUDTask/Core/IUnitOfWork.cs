@@ -11,6 +11,7 @@ namespace CRUDTask.Core
     {
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
+        IReportRepository Reports { get; }
 
         int Complete();
     }

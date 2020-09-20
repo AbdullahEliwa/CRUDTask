@@ -192,13 +192,16 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Core\Domain\Category.cs" />
     <Compile Include="Core\Domain\Product.cs" />
+    <Compile Include="Core\Domain\Report.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="Core\Repositories\ICategoryRepository.cs" />
     <Compile Include="Core\Repositories\IProductRepository.cs" />
+    <Compile Include="Core\Repositories\IReportRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="DataAccessLayer\ApplicationDbContext.cs" />
     <Compile Include="DataAccessLayer\Repositories\CategoryRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\ProductRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\ReportRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\Repository.cs" />
     <Compile Include="DataAccessLayer\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,6 +218,10 @@
     <Compile Include="Migrations\202009200008471_AddCategoriesTblToDB.cs" />
     <Compile Include="Migrations\202009200008471_AddCategoriesTblToDB.Designer.cs">
       <DependentUpon>202009200008471_AddCategoriesTblToDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009200023385_AddReportsTblToDB.cs" />
+    <Compile Include="Migrations\202009200023385_AddReportsTblToDB.Designer.cs">
+      <DependentUpon>202009200023385_AddReportsTblToDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -305,6 +312,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009200008471_AddCategoriesTblToDB.resx">
       <DependentUpon>202009200008471_AddCategoriesTblToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200023385_AddReportsTblToDB.resx">
+      <DependentUpon>202009200023385_AddReportsTblToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

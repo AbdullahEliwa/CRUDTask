@@ -8,6 +8,11 @@ namespace CRUDTask.Core.Domain
 {
     public class Product
     {
+        public Product()
+        {
+            Reports = new HashSet<Report>();
+        }
+
         public int ID { get; set; }
 
         [Required]
@@ -24,6 +29,8 @@ namespace CRUDTask.Core.Domain
 
         public int CategoryID { get; set; }
         public Category Category{ get; set; }
+
+        public ICollection<Report> Reports { get; set; }
 
 
 

@@ -12,17 +12,19 @@ namespace CRUDTask.DataAccessLayer
         private readonly ApplicationDbContext _context;
         public UnitOfWork(ApplicationDbContext context
                          ,IProductRepository products
-                         ,ICategoryRepository categories)
+                         ,ICategoryRepository categories
+                         ,IReportRepository reports)
         {
             this._context = context;
             this.Products = Products;
             this.Categories = categories;
+            this.Reports = reports;
         }
 
 
         public IProductRepository Products { get; private set; }
         public ICategoryRepository Categories { get; private set; }
-
+        public IReportRepository Reports { get; private set; }
         public int Complete()
         {
             return _context.SaveChanges();

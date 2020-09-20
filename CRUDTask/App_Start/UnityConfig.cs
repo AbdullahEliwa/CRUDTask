@@ -50,6 +50,7 @@ namespace CRUDTask
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<ICategoryRepository, CategoryRepository>();
+            container.RegisterType<IReportRepository, ReportRepository>();
 
 
         }
