@@ -1,4 +1,98 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<CRUDTask.Core.Domain.Report>
+
+@{
+    ViewBag.Title = "All Orders";
+    var No = 1;
 }
 
+@section style
+{
+    <style>
+        main {
+            margin-top: 150px;
+        }
+
+        .margin-left {
+            margin-left: 5%;
+        }
+    </style>
+}
+<section>
+    <div class="container is-fullwidth" style="overflow: auto">
+        <!-- Not Finished-->
+        @Html.ActionLink("Create new Report", "Create", null, new { @class = "button is-primary has-text-weight-bold is-size-4 margin-left" })
+        <hr />
+       
+
+        <table class="table is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Notes</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="subtitle has-text-centered has-text-danger">Looks like, can't find any Report.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var report in Model)
+                    {
+                        <tr id="update">
+                            <td>@No</td>
+                            <td>@Html.ActionLink(report.ID.ToString(), "", new { id = report.ID }, new { @class = "has-text-link" })</td>
+                            <td>@report.Date</td>
+                            <td>@report.Notes</td>
+                            <td>@Html.ActionLink("Update", "Update", new { id = report.ID }, new { @class = "button is-info" })</td>
+                            <td><button id=@report.ID onclick="removeFunc(this.id)" class="button is-danger">Delete</button></td>
+                            @{ No++; }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title">Delete Event</p>
+                <button class="delete close" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p class="has-text-danger is-size-2">Are you sure you want to delete this Report?<p>
+            </section>
+            <footer class="modal-card-foot">
+                <a id="delete-button" class="button is-danger">Delete</a>
+                <button class="button close">Cancel</button>
+            </footer>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script>
+        function removeFunc(id) {
+            // Change the Link to delete Report instead of Home, if needed.
+            $("#delete-button").attr("href", "/Home/Delete/" + id);
+            $(".modal").addClass("is-active is-clipped");
+        }
+
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $(".modal").removeClass("is-active is-clipped");
+            });
+        });
+    </script>
+
+}

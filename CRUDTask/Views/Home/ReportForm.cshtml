@@ -1,0 +1,70 @@
+﻿@model CRUDTask.Core.Domain.Report
+@{
+    ViewBag.Title = Model.ID == 0 ? "Create new report" : "Edit report";
+    var title = Model.ID == 0 ? "Create new report" : "Edit report";
+}
+
+
+@section style {
+    <style>
+        h1 {
+            text-decoration: underline;
+        }
+
+        input {
+            display: block !important;
+            width: 50% !important;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+<section class="section has-text-centered">
+    <h1 class="title is-size-2">@title</h1>
+    <hr />
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            @Html.ValidationSummary("", new { @class = "has-background-danger has-text-white" })
+        </div>
+
+        @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "column is-full-touch" }))
+        {
+            <div class="columns is-multiline">
+                <div class="column field is-12 has-text-link">
+                    @Html.LabelFor(R => R.ID, new { @class = "label is-size-2" })
+                    <div class="control  has-text-centered is-size-3">
+                        @Html.DisplayFor(R => R.ID)
+                    </div>
+                </div>
+
+                <!--TODO: Change this to Datetime picker-->
+                <div class="column field is-12">
+                    @Html.LabelFor(R => R.Date, new { @class = "label is-size-2" })
+                    <div class="control">
+                        @Html.TextBoxFor(R => R.Date, new { @class = "input", required = "required" })
+                    </div>
+                    @Html.ValidationMessageFor(R => R.Date)
+                </div>
+
+                <div class="column field is-12">
+                    @Html.LabelFor(R => R.Notes, new { @class = "label is-size-2" })
+                    <div class="control">
+                        @Html.TextAreaFor(R => R.Notes, new { @class = "input", required = "required" })
+                    </div>
+                    @Html.ValidationMessageFor(R => R.Notes)
+                </div>
+                
+                @Html.HiddenFor(R => R.ID)
+                @Html.AntiForgeryToken()
+                <input type="submit" class="button is-primary column is-6 is-size-5 is-full-mobile is-paddingless" value="save" />
+            </div>
+        }
+    </div>
+
+</section>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

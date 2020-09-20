@@ -7,18 +7,27 @@
     @Styles.Render("~/Content/css")
     <link href="https://fonts.googleapis.com/css?family=Dokdo" rel="stylesheet">
     @Scripts.Render("~/bundles/modernizr")
-
+    @RenderSection("style", required: false)
 </head>
+
 <body>
+
+
     @Html.Partial("_NavBar")
+
 
     <main>
         @RenderBody()
     </main>
 
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/Main.js")
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
+
+
 </body>
+
+
 </html>
