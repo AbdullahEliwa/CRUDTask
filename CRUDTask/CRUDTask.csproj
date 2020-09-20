@@ -190,9 +190,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Core\Domain\Product.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IProductRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="DataAccessLayer\ApplicationDbContext.cs" />
+    <Compile Include="DataAccessLayer\Repositories\ProductRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\Repository.cs" />
     <Compile Include="DataAccessLayer\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,6 +204,10 @@
     <Compile Include="Migrations\202009192329336_AddIdentityTblsToDB.cs" />
     <Compile Include="Migrations\202009192329336_AddIdentityTblsToDB.Designer.cs">
       <DependentUpon>202009192329336_AddIdentityTblsToDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009192358018_AddProductsTblToDB.cs" />
+    <Compile Include="Migrations\202009192358018_AddProductsTblToDB.Designer.cs">
+      <DependentUpon>202009192358018_AddProductsTblToDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -268,7 +275,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Core\Domain\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -286,6 +292,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009192329336_AddIdentityTblsToDB.resx">
       <DependentUpon>202009192329336_AddIdentityTblsToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009192358018_AddProductsTblToDB.resx">
+      <DependentUpon>202009192358018_AddProductsTblToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

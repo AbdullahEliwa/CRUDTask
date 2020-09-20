@@ -1,4 +1,5 @@
-﻿using CRUDTask.Models;
+﻿using CRUDTask.Core.Domain;
+using CRUDTask.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CRUDTask.DataAccessLayer
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
+        public DbSet<Product> Products { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
