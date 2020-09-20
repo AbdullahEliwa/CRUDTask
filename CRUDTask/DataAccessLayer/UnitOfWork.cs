@@ -11,15 +11,17 @@ namespace CRUDTask.DataAccessLayer
     {
         private readonly ApplicationDbContext _context;
         public UnitOfWork(ApplicationDbContext context
-            ,IProductRepository products)
+                         ,IProductRepository products
+                         ,ICategoryRepository categories)
         {
             this._context = context;
             this.Products = Products;
+            this.Categories = categories;
         }
 
 
         public IProductRepository Products { get; private set; }
-
+        public ICategoryRepository Categories { get; private set; }
 
         public int Complete()
         {

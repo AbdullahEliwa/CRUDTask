@@ -1,5 +1,7 @@
 using CRUDTask.Core;
+using CRUDTask.Core.Repositories;
 using CRUDTask.DataAccessLayer;
+using CRUDTask.DataAccessLayer.Repositories;
 using System;
 
 using Unity;
@@ -46,6 +48,9 @@ namespace CRUDTask
             // TODO: Register your type's mappings here.
             container.RegisterType<ApplicationDbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<ICategoryRepository, CategoryRepository>();
+
 
         }
     }

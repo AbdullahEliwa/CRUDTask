@@ -22,7 +22,10 @@ namespace CRUDTask.Core.Domain
         [Range(1, int.MaxValue, ErrorMessage = "Price must be bigger than 1!")]
         public float UnitPrice { get; set; }
 
-        
+        public int CategoryID { get; set; }
+        public Category Category{ get; set; }
+
+
 
     }
 }
