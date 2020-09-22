@@ -32,11 +32,21 @@ namespace CRUDTask.Controllers
         #region Create Operation
         public ActionResult Create()
         {
+            int reportId;
+            if (!_unitOfWork.Reports.GetAll().Any())
+            {
+                reportId = 1;
+            }
+            else
+            {
+                reportId = _unitOfWork.Reports.GetAll().OrderBy(r => r.ID).Last().ID + 1;
+            }
             var reportProductVM = new ReportProductViewModel()
             {
+
                 report = new Report()
                 {
-                    ID = 0,
+                    ID = reportId,
                     Date = DateTime.UtcNow
                 }
             };
@@ -81,7 +91,8 @@ namespace CRUDTask.Controllers
                 return View("ReportForm", orderProductVM);
             }
 
-            if (orderProductVM.report.ID == 0)
+            var reportInDB = _unitOfWork.Reports.SingleOrDefault(r => r.ID == orderProductVM.report.ID);
+            if (reportInDB is null)
             {
                 var products = new List<Product>();
                 foreach (var productId in ProductIds)
@@ -91,6 +102,7 @@ namespace CRUDTask.Controllers
                 }
                 var report = new Report()
                 {
+                    ID = orderProductVM.report.ID,
                     Date = orderProductVM.report.Date,
                     Notes = orderProductVM.report.Notes,
                     Products = products
@@ -99,7 +111,6 @@ namespace CRUDTask.Controllers
             }
             else
             {
-                var reportInDB = _unitOfWork.Reports.Get(orderProductVM.report.ID);
                 reportInDB.Date = orderProductVM.report.Date;
                 reportInDB.Notes = orderProductVM.report.Notes;
                 reportInDB.Products.Clear();
@@ -110,6 +121,7 @@ namespace CRUDTask.Controllers
                 }
             }
             _unitOfWork.Complete();
+
 
             return RedirectToAction("Index");
         }

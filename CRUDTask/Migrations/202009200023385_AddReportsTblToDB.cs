@@ -11,7 +11,7 @@ namespace CRUDTask.Migrations
                 "dbo.Reports",
                 c => new
                     {
-                        ID = c.Int(nullable: false, identity: true),
+                        ID = c.Int(nullable: false),
                         Date = c.DateTime(nullable: false),
                         Notes = c.String(nullable: false, maxLength: 500),
                     })

@@ -201,7 +201,7 @@
     <Compile Include="Core\Repositories\IProductRepository.cs" />
     <Compile Include="Core\Repositories\IReportRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
-    <Compile Include="DataAccessLayer\IUnitOfWork.cs" />
+    <Compile Include="DataAccessLayer\ApplicationDbContext.cs" />
     <Compile Include="DataAccessLayer\Repositories\CategoryRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\ProductRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\ReportRepository.cs" />
@@ -237,6 +237,14 @@
     <Compile Include="Migrations\202009220253053_AddSampleProductData.cs" />
     <Compile Include="Migrations\202009220253053_AddSampleProductData.Designer.cs">
       <DependentUpon>202009220253053_AddSampleProductData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009221237012_MakesNoteNotRequired.cs" />
+    <Compile Include="Migrations\202009221237012_MakesNoteNotRequired.Designer.cs">
+      <DependentUpon>202009221237012_MakesNoteNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009221254141_MakingReportIdNotIdentityColumn.cs" />
+    <Compile Include="Migrations\202009221254141_MakingReportIdNotIdentityColumn.Designer.cs">
+      <DependentUpon>202009221254141_MakingReportIdNotIdentityColumn.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -328,6 +336,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009220253053_AddSampleProductData.resx">
       <DependentUpon>202009220253053_AddSampleProductData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221237012_MakesNoteNotRequired.resx">
+      <DependentUpon>202009221237012_MakesNoteNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009221254141_MakingReportIdNotIdentityColumn.resx">
+      <DependentUpon>202009221254141_MakingReportIdNotIdentityColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

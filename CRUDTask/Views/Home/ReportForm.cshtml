@@ -48,7 +48,7 @@
                 <div class="column field is-12">
                     @Html.LabelFor(R => R.report.Date, new { @class = "label is-size-2" })
                     <div class="control">
-                        @Html.TextBoxFor(R => R.report.Date, new { @class = "input", required = "required" })
+                        @Html.EditorFor(R => R.report.Date)
                     </div>
                     @Html.ValidationMessageFor(R => R.report.Date)
                 </div>
@@ -57,7 +57,7 @@
                     @Html.LabelFor(R => R.report.Notes, new { @class = "label is-size-2" })
                     <div class="control columns is-centered">
                         <div class="column is-8">
-                            @Html.TextAreaFor(R => R.report.Notes, new { @class = "input report-notes", required = "required" })
+                            @Html.TextAreaFor(R => R.report.Notes, new { @class = "input report-notes"})
                         </div>
                     </div>
                     @Html.ValidationMessageFor(R => R.report.Notes)
