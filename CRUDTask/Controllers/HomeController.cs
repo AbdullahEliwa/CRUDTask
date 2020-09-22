@@ -75,9 +75,9 @@ namespace CRUDTask.Controllers
         {
             if (!ModelState.IsValid)
                 return View("ReportForm", orderProductVM);
-            if (ProductIds is null)
+            if (ProductIds.Any(p => p == 0))
             {
-                ModelState.AddModelError("", "Report must have at least one product.");
+                ModelState.AddModelError("", "Report must have at least one product, one of the products have not selected correctly!");
                 return View("ReportForm", orderProductVM);
             }
 
