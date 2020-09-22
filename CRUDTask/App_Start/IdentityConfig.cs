@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using CRUDTask.Models;
 using CRUDTask.DataAccessLayer;
+using CRUDTask.Core.Domain;
 
 namespace CRUDTask
 {

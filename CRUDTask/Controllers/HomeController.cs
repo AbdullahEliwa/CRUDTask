@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CRUDTask.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -1,3 +1,4 @@
+using CRUDTask.Controllers;
 using CRUDTask.Core;
 using CRUDTask.Core.Repositories;
 using CRUDTask.DataAccessLayer;
@@ -5,6 +6,7 @@ using CRUDTask.DataAccessLayer.Repositories;
 using System;
 
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace CRUDTask
@@ -52,6 +54,9 @@ namespace CRUDTask
             container.RegisterType<ICategoryRepository, CategoryRepository>();
             container.RegisterType<IReportRepository, ReportRepository>();
 
+
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
 
         }
     }

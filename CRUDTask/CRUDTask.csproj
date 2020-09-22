@@ -192,6 +192,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Core\Domain\ApplicationUser.cs" />
     <Compile Include="Core\Domain\Category.cs" />
     <Compile Include="Core\Domain\Product.cs" />
     <Compile Include="Core\Domain\Report.cs" />
@@ -225,9 +226,12 @@
     <Compile Include="Migrations\202009200023385_AddReportsTblToDB.Designer.cs">
       <DependentUpon>202009200023385_AddReportsTblToDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009220220365_AddDefaultUserData.cs" />
+    <Compile Include="Migrations\202009220220365_AddDefaultUserData.Designer.cs">
+      <DependentUpon>202009220220365_AddDefaultUserData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -307,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009200023385_AddReportsTblToDB.resx">
       <DependentUpon>202009200023385_AddReportsTblToDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009220220365_AddDefaultUserData.resx">
+      <DependentUpon>202009220220365_AddDefaultUserData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

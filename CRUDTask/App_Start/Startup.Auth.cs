@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using CRUDTask.Models;
 using CRUDTask.DataAccessLayer;
+using CRUDTask.Core.Domain;
 
 namespace CRUDTask
 {
