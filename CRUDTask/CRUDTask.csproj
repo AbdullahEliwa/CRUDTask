@@ -230,6 +230,14 @@
     <Compile Include="Migrations\202009220220365_AddDefaultUserData.Designer.cs">
       <DependentUpon>202009220220365_AddDefaultUserData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009220246122_AddSampleCategoryData.cs" />
+    <Compile Include="Migrations\202009220246122_AddSampleCategoryData.Designer.cs">
+      <DependentUpon>202009220246122_AddSampleCategoryData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009220253053_AddSampleProductData.cs" />
+    <Compile Include="Migrations\202009220253053_AddSampleProductData.Designer.cs">
+      <DependentUpon>202009220253053_AddSampleProductData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -314,6 +322,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009220220365_AddDefaultUserData.resx">
       <DependentUpon>202009220220365_AddDefaultUserData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009220246122_AddSampleCategoryData.resx">
+      <DependentUpon>202009220246122_AddSampleCategoryData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009220253053_AddSampleProductData.resx">
+      <DependentUpon>202009220253053_AddSampleProductData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
