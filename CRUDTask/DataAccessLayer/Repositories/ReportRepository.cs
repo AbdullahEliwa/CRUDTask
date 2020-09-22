@@ -2,6 +2,7 @@
 using CRUDTask.Core.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,13 @@ namespace CRUDTask.DataAccessLayer.Repositories
             :base(context)
         {
 
+        }
+
+        public Report GetReportWithProducts(int reportId)
+        {
+            var reports = _context.Reports.Include(r => r.Products)
+                                          .SingleOrDefault(r => r.ID == reportId);
+            return reports;
         }
     }
 }

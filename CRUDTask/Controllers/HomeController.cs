@@ -1,5 +1,7 @@
 ﻿using CRUDTask.Core;
 using CRUDTask.Core.Domain;
+using CRUDTask.DataAccessLayer;
+using CRUDTask.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,44 +31,85 @@ namespace CRUDTask.Controllers
         #region Create Operation
         public ActionResult Create()
         {
-            var report = new Report()
+            var reportProductVM = new ReportProductViewModel()
             {
-                ID = 0,
-                Date = DateTime.UtcNow.AddHours(2)
+                report = new Report()
+                {
+                    ID = 0,
+                    Date = DateTime.UtcNow
+                }
             };
 
-            return View("ReportForm", report);
+            return View("ReportForm", reportProductVM);
         }
         #endregion
 
+        // TODO: Update method need to retrive products, that's retalted to report
         #region Update Operation
         public ActionResult Update(int id)
         {
-            var reportInDb = _unitOfWork.Reports.SingleOrDefault(r => r.ID == id);
+            var reportInDb = _unitOfWork.Reports.GetReportWithProducts(id);
             if (reportInDb is null)
                 return HttpNotFound();
-            return View("ReportForm", reportInDb);
+
+            var reportProductVM = new ReportProductViewModel()
+            {
+                report = reportInDb,
+                Products = reportInDb.Products,
+                AllCategories = _unitOfWork.Categories.GetAll(),
+                AllProducts = _unitOfWork.Products.GetAll()
+            };
+
+            return View("ReportForm", reportProductVM);
         }
         #endregion
 
+
+
         #region Save action for [Create - Update]
+        // TODO: Not Finished(Need to handle Update)
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Create(Report report)
+        public ActionResult Save(ReportProductViewModel orderProductVM, int[] ProductIds)
         {
             if (!ModelState.IsValid)
-                return View("ReportForm", report);
-            if(report.ID == 0)
+                return View("ReportForm", orderProductVM);
+            if (ProductIds is null)
             {
+                ModelState.AddModelError("", "Report must have at least one product.");
+                return View("ReportForm", orderProductVM);
+            }
+
+            if (orderProductVM.report.ID == 0)
+            {
+                var products = new List<Product>();
+                foreach (var productId in ProductIds)
+                {
+                    var product = _unitOfWork.Products.Get(productId);
+                    products.Add(product);
+                }
+                var report = new Report()
+                {
+                    Date = orderProductVM.report.Date,
+                    Notes = orderProductVM.report.Notes,
+                    Products = products
+                };
                 _unitOfWork.Reports.Add(report);
             }
             else
             {
-                var reportInDB = _unitOfWork.Reports.Get(report.ID);
-                reportInDB.Date = report.Date;
-                reportInDB.Notes = report.Notes;
+                var reportInDB = _unitOfWork.Reports.Get(orderProductVM.report.ID);
+                reportInDB.Date = orderProductVM.report.Date;
+                reportInDB.Notes = orderProductVM.report.Notes;
+                reportInDB.Products.Clear();
+                foreach (var productId in ProductIds)
+                {
+                    var product = _unitOfWork.Products.Get(productId);
+                    reportInDB.Products.Add(product);
+                }
             }
             _unitOfWork.Complete();
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -82,6 +125,7 @@ namespace CRUDTask.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
 
     }
 }

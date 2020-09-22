@@ -19,7 +19,6 @@
 }
 <section>
     <div class="container is-fullwidth" style="overflow: auto">
-        <!-- Not Finished-->
         @Html.ActionLink("Create new Report", "Create", null, new { @class = "button is-primary has-text-weight-bold is-size-4 margin-left" })
         <hr />
        
@@ -48,7 +47,7 @@
                     {
                         <tr id="update">
                             <td>@No</td>
-                            <td>@Html.ActionLink(report.ID.ToString(), "", new { id = report.ID }, new { @class = "has-text-link" })</td>
+                            <td>@report.ID</td>
                             <td>@report.Date</td>
                             <td>@report.Notes</td>
                             <td>@Html.ActionLink("Update", "Update", new { id = report.ID }, new { @class = "button is-info" })</td>

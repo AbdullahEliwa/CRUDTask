@@ -16,7 +16,7 @@ namespace CRUDTask.DataAccessLayer
                          ,IReportRepository reports)
         {
             this._context = context;
-            this.Products = Products;
+            this.Products = products;
             this.Categories = categories;
             this.Reports = reports;
         }

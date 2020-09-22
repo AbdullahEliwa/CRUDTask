@@ -1,7 +1,7 @@
-﻿@model CRUDTask.Core.Domain.Report
+﻿@model CRUDTask.ViewModels.ReportProductViewModel
 @{
-    ViewBag.Title = Model.ID == 0 ? "Create new report" : "Edit report";
-    var title = Model.ID == 0 ? "Create new report" : "Edit report";
+    ViewBag.Title = Model.report.ID == 0 ? "Create new report" : "Edit report";
+    var title = Model.report.ID == 0 ? "Create new report" : "Edit report";
 }
 
 
@@ -16,6 +16,11 @@
             width: 50% !important;
             margin: 0 auto;
         }
+
+        .report-notes {
+            height: 150px;
+            font-size: 20px;
+        }
     </style>
 }
 
@@ -27,36 +32,97 @@
             @Html.ValidationSummary("", new { @class = "has-background-danger has-text-white" })
         </div>
 
-        @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { @class = "column is-full-touch" }))
+        @using (Html.BeginForm("Save", "Home", FormMethod.Post, new { @class = "column is-full-touch" }))
         {
+
+            <!--======================= Start Add Report Part ============================-->
             <div class="columns is-multiline">
                 <div class="column field is-12 has-text-link">
-                    @Html.LabelFor(R => R.ID, new { @class = "label is-size-2" })
+                    @Html.LabelFor(R => R.report.ID, new { @class = "label is-size-2" })
                     <div class="control  has-text-centered is-size-3">
-                        @Html.DisplayFor(R => R.ID)
+                        @Html.DisplayFor(R => R.report.ID)
                     </div>
                 </div>
 
                 <!--TODO: Change this to Datetime picker-->
                 <div class="column field is-12">
-                    @Html.LabelFor(R => R.Date, new { @class = "label is-size-2" })
+                    @Html.LabelFor(R => R.report.Date, new { @class = "label is-size-2" })
                     <div class="control">
-                        @Html.TextBoxFor(R => R.Date, new { @class = "input", required = "required" })
+                        @Html.TextBoxFor(R => R.report.Date, new { @class = "input", required = "required" })
                     </div>
-                    @Html.ValidationMessageFor(R => R.Date)
+                    @Html.ValidationMessageFor(R => R.report.Date)
                 </div>
 
                 <div class="column field is-12">
-                    @Html.LabelFor(R => R.Notes, new { @class = "label is-size-2" })
-                    <div class="control">
-                        @Html.TextAreaFor(R => R.Notes, new { @class = "input", required = "required" })
+                    @Html.LabelFor(R => R.report.Notes, new { @class = "label is-size-2" })
+                    <div class="control columns is-centered">
+                        <div class="column is-8">
+                            @Html.TextAreaFor(R => R.report.Notes, new { @class = "input report-notes", required = "required" })
+                        </div>
                     </div>
-                    @Html.ValidationMessageFor(R => R.Notes)
+                    @Html.ValidationMessageFor(R => R.report.Notes)
                 </div>
-                
-                @Html.HiddenFor(R => R.ID)
+                <!--======================= End Add Report Part ============================-->
+                <div class="column is-12 columns is-centered">
+                    <hr class="column is-6" />
+                </div>
+                <!--======================= Start Add Report Products Part ============================-->
+                <section class="column is-full-desktop">
+                    <div class="container is-fullwidth" style="overflow: auto">
+                        <div class="columns has-text-centered">
+                            <table class="table is-hoverable is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Product name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>
+                                            <a id="add-newProduct" class="button is-black is-size-5">Add new product</a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="product-rows">
+
+                                    <!-- == Product row goes here! == -->
+                                    @if (Model.Products.Any())
+                                    {
+                                        foreach (var product in Model.Products)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DropDownList("c", new SelectList(Model.AllCategories, "ID", "Name", product.CategoryID), new { @class = "category-DropDownList" })
+                                                </td>
+
+                                                <td>
+                                                    @Html.DropDownList("ProductIds", new SelectList(Model.AllProducts, "ID", "Name", product.ID), new { @class = "product-DropDownList" })
+                                                </td>
+
+                                                <td>
+                                                    @Html.TextBox("p", product.UnitPrice, new { @disabled = "diesabled", @class = "product-price" });
+                                                </td>
+
+                                                <td>
+                                                    @Html.TextBox("q", product.Quantity, new { @disabled = "diesabled", @class = "product-quantity" })
+                                                </td>
+
+                                                <td>
+                                                    <a class="delete-button button is-danger">remove product</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <!--======================= End Add Report Products Part ============================-->
+
+                @Html.HiddenFor(R => R.report.ID)
                 @Html.AntiForgeryToken()
-                <input type="submit" class="button is-primary column is-6 is-size-5 is-full-mobile is-paddingless" value="save" />
+                <input type="submit" class="button is-primary column is-6 is-size-4 is-full-mobile is-paddingless" value="save" />
             </div>
         }
     </div>
@@ -67,4 +133,98 @@
 @section scripts
 {
     @Scripts.Render("~/bundles/jqueryval")
+    @*================== Start Js ================================*@
+    <script>
+        /*=============== Add New Product Row =====================*/
+        $("#add-newProduct").on("click", function () {
+            
+            LoadCategories();
+            var htmlString = `
+                                    <tr>
+                                        <td>
+                                            <select class="category-DropDownList"> </select>
+                                        </td>
+
+                                        <td>
+                                            <select name="ProductIds" class="product-DropDownList"> </select>
+                                        </td>
+
+                                        <td>
+                                            <input class="product-price" type="text" disabled />
+                                        </td>
+
+                                        <td>
+                                            <input class="product-quantity" type="text" disabled />
+                                        </td>
+
+                                        <td>
+                                            <a class="delete-button button is-danger">remove product</a>
+                                        </td>
+                                    </tr>
+                            `
+                ;
+            $("#product-rows").append(htmlString);
+        });
+
+        /*======================= Load Categries =========================*/
+        function LoadCategories() {
+            $.getJSON('@Url.Action("GetAllCategories", "Categories")', function (result) {
+                $("#product-rows .category-DropDownList").last().html("");
+                $("#product-rows .category-DropDownList").last().append("<option value='0'>nothing selected yet.</option>");
+                for (var i = 0; i < result.length; i++) {
+                    $("#product-rows .category-DropDownList").last().append("<option value=" + result[i].ID + ">" + result[i].Name + "</option");
+                }
+            });
+        }
+
+        /*=============== Show Products ======================*/
+        $("#product-rows").on("change", ".category-DropDownList", function () {
+            const categoryId = this.value;
+            $row = $(this).closest("tr");
+            showProducts(categoryId, $row);
+        });
+        function showProducts(categoryId, $row) {
+            $.getJSON('@Url.Action("GetProductsByCategoryId", "Products")' + "/" + categoryId, function (result) {
+                $row.find(".product-DropDownList").html("");
+
+                $row.find(".product-DropDownList").append("<option value=''>no thing selected yet.</option>");
+                for (var i = 0; i < result.length; i++) {
+                    $row.find(".product-DropDownList").append("<option value=" + result[i].ID + ">" + result[i].Name + "</option");
+                }
+            });
+        }
+
+        /*=============== Show Product Details ======================*/
+
+        $("#product-rows").on("change", ".product-DropDownList", function () {
+
+            const productId = this.value;
+            $row = $(this).closest("tr");
+            showProductDetails(productId, $row);
+        });
+        function showProductDetails(productId, $row)
+        {
+            $.getJSON('@Url.Action("GetProductsDetails", "Products")' + "/" + productId, function (result) {
+                $row.find(".product-price").html("");
+                $row.find(".product-quantity").html("");
+                console.log(result);
+                for (var i = 0; i < result.length; i++){
+                    $row.find(".product-price").val(result[i].price);
+                    $row.find(".product-quantity").val(result[i].quantity);
+            }
+
+            });
+            }
+        /*====== Remove Product Row ======*/
+        $("#product-rows").on("click", ".delete-button", function (e) {
+            $(this).closest("tr").remove();
+        });
+
+        //function deleteRow(e) {
+        //    console.log(e);
+        //    $(this).find("tr").remove();
+        //}
+
+    </script>
+    @*================== End Js ================================*@
 }

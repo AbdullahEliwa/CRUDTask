@@ -9,5 +9,6 @@ namespace CRUDTask.Core.Repositories
 {
     public interface IReportRepository : IRepository<Report>
     {
+        Report GetReportWithProducts(int reportId);
     }
 }
